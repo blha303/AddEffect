@@ -22,6 +22,7 @@ public class AddEffect extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command command,
 			String label, String[] args) {
 		boolean hasarg = false;
+		boolean everyone = false;
 		Player p = null;
 		String name = "";
 		String[] arg;
@@ -39,8 +40,11 @@ public class AddEffect extends JavaPlugin {
 			return false;
 		}
 		if (args.length == 2) {
+			if (args[1].equalsIgnoreCase("all")) {
+				everyone = true; hasarg = true; } else {
 			p = this.getServer().getPlayer(args[1]);
 			if (p != null) hasarg = true;
+			}
 		}
 		if (sender instanceof Player) {
 			if (!((Player) sender).hasPermission("command.effect")) {
@@ -50,12 +54,21 @@ public class AddEffect extends JavaPlugin {
 				PotionEffectType effect = getEffect(name);
 				if (effect != null) {
 					if (hasarg) {
+						if (everyone) {
+							for (Player player : getServer().getOnlinePlayers()) {
+								player.removePotionEffect(effect);
+								player.addPotionEffect(new PotionEffect(effect, 1000000, amplifier - 1));
+							}
+							sender.sendMessage(String.format("Effect added to all players: %s %s", effect.getName(), amplifier));
+							return true;
+						} else {
 						p.addPotionEffect(new PotionEffect(effect, 1000000,
 								amplifier - 1));
 						sender.sendMessage(String.format(
 								"Effect added to %s: %s %s", p.getName(),
 								effect.getName(), amplifier));
 						return true;
+						}
 					} else {
 						((Player) sender).addPotionEffect(new PotionEffect(
 								effect, 1000000, amplifier - 1));
@@ -74,11 +87,20 @@ public class AddEffect extends JavaPlugin {
 				return false;
 			} else {
 				PotionEffectType effect = getEffect(name);
+				if (everyone) {
+					for (Player player : getServer().getOnlinePlayers()) {
+						player.removePotionEffect(effect);
+						player.addPotionEffect(new PotionEffect(effect, 1000000, amplifier - 1));
+					}
+					sender.sendMessage(String.format("Effect added to all players: %s %s", effect.getName(), amplifier));
+					return true;
+				} else {
 				p.addPotionEffect(new PotionEffect(effect, 1000000,
 						amplifier - 1));
 				sender.sendMessage(String.format("Effect added to %s: %s %s",
 						p.getName(), effect.getName(), amplifier));
 				return true;
+				}
 			}
 		}
 	}
