@@ -10,6 +10,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+/**
+ * @deprecated NewAddEffect
+ * @author blha303
+ *
+ */
 public class AddEffect extends JavaPlugin {
 	public Logger log;
 

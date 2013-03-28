@@ -1,0 +1,11 @@
+name: AddEffect
+main: me.blha303.NewAddEffect
+version: 1
+author: blha303
+commands:
+  effect:
+    description: Adds specified effect to player
+permissions:
+  addeffect.effect:
+    description: Allows players to use /effect
+    default: op

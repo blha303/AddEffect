@@ -1,8 +1,0 @@
-name: AddEffect
-main: me.blha303.AddEffect
-version: 1
-author: blha303
-commands:
-  effect:
-    description: Adds specified effect to player
-    usage: /effect <effect> [player]
